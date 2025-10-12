@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Box,
   CssBaseline,
@@ -12,7 +12,6 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Divider,
   useTheme,
   useMediaQuery,
 } from '@mui/material';
@@ -62,14 +61,29 @@ const MainLayout: React.FC = () => {
   };
 
   const drawer = (
-    <div>
-      <Toolbar>
-        <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 'bold' }}>
-          ICRoGen
-        </Typography>
+    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Toolbar sx={{ 
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        borderRadius: '0 0 20px 20px',
+        mb: 2,
+      }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Schedule sx={{ color: 'white', fontSize: 32 }} />
+          <Typography 
+            variant="h5" 
+            noWrap 
+            component="div" 
+            sx={{ 
+              fontWeight: 800,
+              color: 'white',
+              letterSpacing: '-0.02em',
+            }}
+          >
+            ICRoGen
+          </Typography>
+        </Box>
       </Toolbar>
-      <Divider />
-      <List>
+      <List sx={{ px: 1, flex: 1 }}>
         {menuItems.map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton
@@ -80,20 +94,30 @@ const MainLayout: React.FC = () => {
                   setMobileOpen(false);
                 }
               }}
+              sx={{
+                minHeight: 48,
+              }}
             >
               <ListItemIcon
                 sx={{
-                  color: location.pathname === item.path ? 'primary.main' : 'inherit',
+                  color: location.pathname === item.path ? 'primary.main' : '#6b7280',
+                  minWidth: 40,
                 }}
               >
                 {item.icon}
               </ListItemIcon>
-              <ListItemText primary={item.text} />
+              <ListItemText 
+                primary={item.text}
+                primaryTypographyProps={{
+                  fontSize: '0.95rem',
+                  fontWeight: location.pathname === item.path ? 700 : 500,
+                }}
+              />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
-    </div>
+    </Box>
   );
 
   return (
@@ -101,6 +125,7 @@ const MainLayout: React.FC = () => {
       <CssBaseline />
       <AppBar
         position="fixed"
+        elevation={0}
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
@@ -108,17 +133,34 @@ const MainLayout: React.FC = () => {
       >
         <Toolbar>
           <IconButton
-            color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ 
+              mr: 2, 
+              display: { sm: 'none' },
+              color: 'primary.main',
+            }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            IIEST Central Routine Generator
-          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Typography 
+              variant="h5" 
+              noWrap 
+              component="div"
+              sx={{
+                fontWeight: 700,
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                letterSpacing: '-0.01em',
+              }}
+            >
+              IIEST Central Routine Generator
+            </Typography>
+          </Box>
         </Toolbar>
       </AppBar>
       <Box

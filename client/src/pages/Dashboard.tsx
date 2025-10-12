@@ -1,7 +1,5 @@
-import React from 'react';
 import {
   Box,
-  Grid,
   Card,
   CardContent,
   Typography,
@@ -10,6 +8,7 @@ import {
   ListItem,
   ListItemText,
   Chip,
+  ListItemButton,
 } from '@mui/material';
 import {
   School,
@@ -79,167 +78,299 @@ const Dashboard: React.FC = () => {
 
   return (
     <Box>
-      <Typography variant="h4" gutterBottom fontWeight="bold">
-        Dashboard
-      </Typography>
-      <Typography variant="body1" color="text.secondary" paragraph>
-        Welcome to ICRoGen - Manage your academic schedules efficiently
-      </Typography>
+      <Box sx={{ mb: 4 }}>
+        <Typography 
+          variant="h3" 
+          gutterBottom 
+          sx={{ 
+            fontWeight: 800,
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            letterSpacing: '-0.02em',
+          }}
+        >
+          Dashboard
+        </Typography>
+        <Typography variant="h6" sx={{ color: 'rgba(0,0,0,0.6)', fontWeight: 500 }}>
+          Welcome to ICRoGen - Manage your academic schedules efficiently
+        </Typography>
+      </Box>
 
-      <Grid container spacing={3} sx={{ mb: 4 }}>
+      <Box sx={{ 
+        display: 'grid', 
+        gridTemplateColumns: {
+          xs: '1fr',
+          sm: 'repeat(2, 1fr)',
+          md: 'repeat(3, 1fr)',
+          lg: 'repeat(6, 1fr)',
+        },
+        gap: 3,
+        mb: 4,
+      }}>
         {stats.map((stat, index) => (
-          <Grid item xs={12} sm={6} md={4} lg={2} key={index}>
-            <Card
+          <Card
+            key={index}
+            sx={{
+              height: '100%',
+              position: 'relative',
+              overflow: 'hidden',
+              background: `linear-gradient(135deg, ${stat.color}15 0%, ${stat.color}05 100%)`,
+              border: `2px solid ${stat.color}30`,
+            }}
+          >
+            <Box
               sx={{
-                height: '100%',
-                background: `linear-gradient(135deg, ${stat.color}20 0%, ${stat.color}10 100%)`,
-                borderTop: `3px solid ${stat.color}`,
+                position: 'absolute',
+                top: -20,
+                right: -20,
+                width: 100,
+                height: 100,
+                borderRadius: '50%',
+                background: `radial-gradient(circle, ${stat.color}20 0%, transparent 70%)`,
               }}
-            >
-              <CardContent>
-                <Box display="flex" alignItems="center" mb={2}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: 40,
-                      height: 40,
-                      borderRadius: '50%',
-                      backgroundColor: stat.color,
-                      color: 'white',
-                    }}
-                  >
-                    {React.cloneElement(stat.icon, { fontSize: 'small' })}
-                  </Box>
-                </Box>
-                <Typography variant="h4" fontWeight="bold">
-                  {stat.value}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {stat.title}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
-          <Paper sx={{ p: 3 }}>
-            <Box display="flex" alignItems="center" mb={2}>
-              <TrendingUp color="primary" sx={{ mr: 1 }} />
-              <Typography variant="h6" fontWeight="bold">
-                Recent Activities
-              </Typography>
-            </Box>
-            <List>
-              {recentActivities.map((activity, index) => (
-                <ListItem
-                  key={index}
+            />
+            <CardContent sx={{ position: 'relative', zIndex: 1 }}>
+              <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
+                <Box
                   sx={{
-                    borderLeft: `3px solid ${
-                      activity.status === 'success'
-                        ? '#4caf50'
-                        : activity.status === 'warning'
-                        ? '#ff9800'
-                        : '#2196f3'
-                    }`,
-                    mb: 1,
-                    backgroundColor: 'background.default',
-                    borderRadius: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 56,
+                    height: 56,
+                    borderRadius: '16px',
+                    background: `linear-gradient(135deg, ${stat.color} 0%, ${stat.color}dd 100%)`,
+                    boxShadow: `0 8px 16px ${stat.color}40`,
+                    color: 'white',
                   }}
                 >
-                  <ListItemText
-                    primary={activity.text}
-                    secondary={activity.time}
-                  />
-                  <Chip
-                    label={activity.status}
-                    size="small"
-                    color={
-                      activity.status === 'success'
-                        ? 'success'
-                        : activity.status === 'warning'
-                        ? 'warning'
-                        : 'info'
-                    }
-                  />
-                </ListItem>
-              ))}
-            </List>
-          </Paper>
-        </Grid>
-
-        <Grid item xs={12} md={4}>
-          <Paper sx={{ p: 3 }}>
-            <Box display="flex" alignItems="center" mb={2}>
-              <CheckCircle color="success" sx={{ mr: 1 }} />
-              <Typography variant="h6" fontWeight="bold">
-                Quick Actions
+                  <Box component="span" sx={{ fontSize: 28 }}>
+                    {stat.icon}
+                  </Box>
+                </Box>
+              </Box>
+              <Typography 
+                variant="h3" 
+                sx={{ 
+                  fontWeight: 800,
+                  color: stat.color,
+                  mb: 0.5,
+                }}
+              >
+                {stat.value}
               </Typography>
+              <Typography 
+                variant="body2" 
+                sx={{ 
+                  color: 'rgba(0,0,0,0.6)',
+                  fontWeight: 600,
+                }}
+              >
+                {stat.title}
+              </Typography>
+            </CardContent>
+          </Card>
+        ))}
+      </Box>
+
+      <Box sx={{ 
+        display: 'grid', 
+        gridTemplateColumns: { xs: '1fr', md: '2fr 1fr' },
+        gap: 3,
+      }}>
+        <Paper sx={{ p: 4 }}>
+          <Box display="flex" alignItems="center" mb={3} gap={1}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 40,
+                height: 40,
+                borderRadius: '12px',
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white',
+              }}
+            >
+              <TrendingUp />
             </Box>
-            <List>
+            <Typography variant="h5" fontWeight="bold" sx={{ color: '#1f2937' }}>
+              Recent Activities
+            </Typography>
+          </Box>
+          <List sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+            {recentActivities.map((activity, index) => (
               <ListItem
-                button
+                key={index}
                 sx={{
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 1,
-                  mb: 1,
+                  borderLeft: `4px solid ${
+                    activity.status === 'success'
+                      ? '#10b981'
+                      : activity.status === 'warning'
+                      ? '#f59e0b'
+                      : '#06b6d4'
+                  }`,
+                  backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                  borderRadius: 2,
+                  backdropFilter: 'blur(10px)',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  '&:hover': {
+                    transform: 'translateX(8px)',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+                  },
                 }}
               >
                 <ListItemText
-                  primary="Generate New Routine"
-                  secondary="Create schedule for a semester"
+                  primary={activity.text}
+                  secondary={activity.time}
+                  primaryTypographyProps={{
+                    fontWeight: 600,
+                    fontSize: '0.95rem',
+                  }}
+                />
+                <Chip
+                  label={activity.status}
+                  size="small"
+                  color={
+                    activity.status === 'success'
+                      ? 'success'
+                      : activity.status === 'warning'
+                      ? 'warning'
+                      : 'info'
+                  }
+                  sx={{
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    fontSize: '0.7rem',
+                  }}
                 />
               </ListItem>
-              <ListItem
-                button
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 1,
-                  mb: 1,
+            ))}
+          </List>
+        </Paper>
+
+        <Paper sx={{ p: 4 }}>
+          <Box display="flex" alignItems="center" mb={3} gap={1}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 40,
+                height: 40,
+                borderRadius: '12px',
+                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                color: 'white',
+              }}
+            >
+              <CheckCircle />
+            </Box>
+            <Typography variant="h5" fontWeight="bold" sx={{ color: '#1f2937' }}>
+              Quick Actions
+            </Typography>
+          </Box>
+          <List sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+            <ListItemButton
+              sx={{
+                border: '2px solid rgba(99, 102, 241, 0.2)',
+                borderRadius: 2,
+                backdropFilter: 'blur(10px)',
+                background: 'rgba(255, 255, 255, 0.5)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                '&:hover': {
+                  background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)',
+                  borderColor: 'rgba(99, 102, 241, 0.4)',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 4px 16px rgba(99, 102, 241, 0.2)',
+                },
+              }}
+            >
+              <ListItemText
+                primary="Generate New Routine"
+                secondary="Create schedule for a semester"
+                primaryTypographyProps={{
+                  fontWeight: 700,
+                  fontSize: '0.95rem',
                 }}
-              >
-                <ListItemText
-                  primary="Add Programme"
-                  secondary="Create new academic programme"
-                />
-              </ListItem>
-              <ListItem
-                button
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 1,
-                  mb: 1,
+              />
+            </ListItemButton>
+            <ListItemButton
+              sx={{
+                border: '2px solid rgba(236, 72, 153, 0.2)',
+                borderRadius: 2,
+                backdropFilter: 'blur(10px)',
+                background: 'rgba(255, 255, 255, 0.5)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                '&:hover': {
+                  background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(219, 39, 119, 0.1) 100%)',
+                  borderColor: 'rgba(236, 72, 153, 0.4)',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 4px 16px rgba(236, 72, 153, 0.2)',
+                },
+              }}
+            >
+              <ListItemText
+                primary="Add Programme"
+                secondary="Create new academic programme"
+                primaryTypographyProps={{
+                  fontWeight: 700,
+                  fontSize: '0.95rem',
                 }}
-              >
-                <ListItemText
-                  primary="Manage Teachers"
-                  secondary="Add or update faculty members"
-                />
-              </ListItem>
-              <ListItem
-                button
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 1,
+              />
+            </ListItemButton>
+            <ListItemButton
+              sx={{
+                border: '2px solid rgba(16, 185, 129, 0.2)',
+                borderRadius: 2,
+                backdropFilter: 'blur(10px)',
+                background: 'rgba(255, 255, 255, 0.5)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                '&:hover': {
+                  background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%)',
+                  borderColor: 'rgba(16, 185, 129, 0.4)',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 4px 16px rgba(16, 185, 129, 0.2)',
+                },
+              }}
+            >
+              <ListItemText
+                primary="Manage Teachers"
+                secondary="Add or update faculty members"
+                primaryTypographyProps={{
+                  fontWeight: 700,
+                  fontSize: '0.95rem',
                 }}
-              >
-                <ListItemText
-                  primary="View Reports"
-                  secondary="Check routine statistics"
-                />
-              </ListItem>
-            </List>
-          </Paper>
-        </Grid>
-      </Grid>
+              />
+            </ListItemButton>
+            <ListItemButton
+              sx={{
+                border: '2px solid rgba(245, 158, 11, 0.2)',
+                borderRadius: 2,
+                backdropFilter: 'blur(10px)',
+                background: 'rgba(255, 255, 255, 0.5)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                '&:hover': {
+                  background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%)',
+                  borderColor: 'rgba(245, 158, 11, 0.4)',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 4px 16px rgba(245, 158, 11, 0.2)',
+                },
+              }}
+            >
+              <ListItemText
+                primary="View Reports"
+                secondary="Check routine statistics"
+                primaryTypographyProps={{
+                  fontWeight: 700,
+                  fontSize: '0.95rem',
+                }}
+              />
+            </ListItemButton>
+          </List>
+        </Paper>
+      </Box>
     </Box>
   );
 };
