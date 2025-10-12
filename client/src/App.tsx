@@ -5,6 +5,7 @@ import ProgrammeList from './pages/Programmes/ProgrammeList';
 import DepartmentList from './pages/Departments/DepartmentList';
 import TeacherList from './pages/Teachers/TeacherList';
 import SubjectList from './pages/Subjects/SubjectList';
+import SubjectTypeList from './pages/SubjectTypes/SubjectTypeList';
 import RoomList from './pages/Rooms/RoomList';
 import SessionList from './pages/Sessions/SessionList';
 import SemesterOfferingList from './pages/SemesterOfferings/SemesterOfferingList';
@@ -20,6 +21,7 @@ function App() {
           <Route path="departments" element={<DepartmentList />} />
           <Route path="teachers" element={<TeacherList />} />
           <Route path="subjects" element={<SubjectList />} />
+          <Route path="subject-types" element={<SubjectTypeList />} />
           <Route path="rooms" element={<RoomList />} />
           <Route path="sessions" element={<SessionList />} />
           <Route path="semester-offerings" element={<SemesterOfferingList />} />
