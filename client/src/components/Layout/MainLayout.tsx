@@ -13,6 +13,7 @@ const menuItems: MenuItem[] = [
   { text: 'Departments', icon: '🏢', path: '/departments' },
   { text: 'Teachers', icon: '👨‍🏫', path: '/teachers' },
   { text: 'Subjects', icon: '📚', path: '/subjects' },
+  { text: 'Subject Types', icon: '🏷️', path: '/subject-types' },
   { text: 'Rooms', icon: '🚪', path: '/rooms' },
   { text: 'Sessions', icon: '📅', path: '/sessions' },
   { text: 'Semester Offerings', icon: '📋', path: '/semester-offerings' },
