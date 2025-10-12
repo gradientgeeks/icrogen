@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box, CircularProgress, Typography } from '@mui/material';
 
 interface LoadingSpinnerProps {
   message?: string;
@@ -7,19 +6,13 @@ interface LoadingSpinnerProps {
 
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ message = 'Loading...' }) => {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      minHeight="200px"
-      gap={2}
-    >
-      <CircularProgress />
-      <Typography variant="body2" color="text.secondary">
-        {message}
-      </Typography>
-    </Box>
+    <div className="flex flex-col items-center justify-center min-h-[200px] gap-4">
+      <div className="relative w-16 h-16">
+        <div className="absolute inset-0 border-4 border-blue-200 rounded-full"></div>
+        <div className="absolute inset-0 border-4 border-t-blue-600 border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin"></div>
+      </div>
+      <p className="text-gray-600 font-medium">{message}</p>
+    </div>
   );
 };
 
