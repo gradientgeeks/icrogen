@@ -1,32 +1,11 @@
 import React from 'react';
-import {
-  Box,
-  Grid,
-  Card,
-  CardContent,
-  Typography,
-  Paper,
-  List,
-  ListItem,
-  ListItemText,
-  Chip,
-} from '@mui/material';
-import {
-  School,
-  Business,
-  Person,
-  Book,
-  MeetingRoom,
-  Schedule,
-  TrendingUp,
-  CheckCircle,
-} from '@mui/icons-material';
 
 interface StatCard {
   title: string;
   value: string | number;
-  icon: React.ReactElement;
+  icon: string;
   color: string;
+  bgColor: string;
 }
 
 const Dashboard: React.FC = () => {
@@ -34,213 +13,211 @@ const Dashboard: React.FC = () => {
     {
       title: 'Active Programmes',
       value: '5',
-      icon: <School />,
-      color: '#2196f3',
+      icon: '🎓',
+      color: 'from-blue-500 to-blue-600',
+      bgColor: 'bg-blue-50',
     },
     {
       title: 'Departments',
       value: '12',
-      icon: <Business />,
-      color: '#4caf50',
+      icon: '🏢',
+      color: 'from-green-500 to-green-600',
+      bgColor: 'bg-green-50',
     },
     {
       title: 'Total Teachers',
       value: '156',
-      icon: <Person />,
-      color: '#ff9800',
+      icon: '👨‍🏫',
+      color: 'from-orange-500 to-orange-600',
+      bgColor: 'bg-orange-50',
     },
     {
       title: 'Total Subjects',
       value: '342',
-      icon: <Book />,
-      color: '#9c27b0',
+      icon: '📚',
+      color: 'from-purple-500 to-purple-600',
+      bgColor: 'bg-purple-50',
     },
     {
       title: 'Available Rooms',
       value: '48',
-      icon: <MeetingRoom />,
-      color: '#f44336',
+      icon: '🚪',
+      color: 'from-red-500 to-red-600',
+      bgColor: 'bg-red-50',
     },
     {
       title: 'Generated Routines',
       value: '24',
-      icon: <Schedule />,
-      color: '#00bcd4',
+      icon: '⏰',
+      color: 'from-cyan-500 to-cyan-600',
+      bgColor: 'bg-cyan-50',
     },
   ];
 
   const recentActivities = [
-    { text: 'New routine generated for B.Tech CST Sem 5', time: '2 hours ago', status: 'success' },
-    { text: 'Department "Electronics Engineering" updated', time: '5 hours ago', status: 'info' },
-    { text: 'Teacher "Dr. Smith" added to Mathematics dept', time: '1 day ago', status: 'info' },
-    { text: 'Routine committed for M.Sc Physics Sem 3', time: '2 days ago', status: 'success' },
-    { text: 'New session "Fall 2025" created', time: '3 days ago', status: 'warning' },
+    {
+      text: 'New routine generated for B.Tech CST Sem 5',
+      time: '2 hours ago',
+      status: 'success',
+      icon: '✅',
+    },
+    {
+      text: 'Department "Electronics Engineering" updated',
+      time: '5 hours ago',
+      status: 'info',
+      icon: 'ℹ️',
+    },
+    {
+      text: 'Teacher "Dr. Smith" added to Mathematics dept',
+      time: '1 day ago',
+      status: 'info',
+      icon: 'ℹ️',
+    },
+    {
+      text: 'Routine committed for M.Sc Physics Sem 3',
+      time: '2 days ago',
+      status: 'success',
+      icon: '✅',
+    },
+    {
+      text: 'New session "Fall 2025" created',
+      time: '3 days ago',
+      status: 'warning',
+      icon: '⚠️',
+    },
+  ];
+
+  const quickActions = [
+    {
+      title: 'Generate New Routine',
+      description: 'Create schedule for a semester',
+      icon: '🎯',
+    },
+    {
+      title: 'Add Programme',
+      description: 'Create new academic programme',
+      icon: '➕',
+    },
+    {
+      title: 'Manage Teachers',
+      description: 'Add or update faculty members',
+      icon: '👥',
+    },
+    {
+      title: 'View Reports',
+      description: 'Check routine statistics',
+      icon: '📊',
+    },
   ];
 
   return (
-    <Box>
-      <Typography variant="h4" gutterBottom fontWeight="bold">
-        Dashboard
-      </Typography>
-      <Typography variant="body1" color="text.secondary" paragraph>
-        Welcome to ICRoGen - Manage your academic schedules efficiently
-      </Typography>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="space-y-2">
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          Dashboard
+        </h1>
+        <p className="text-gray-600 text-lg">
+          Welcome to ICRoGen - Manage your academic schedules efficiently
+        </p>
+      </div>
 
-      <Grid container spacing={3} sx={{ mb: 4 }}>
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         {stats.map((stat, index) => (
-          <Grid item xs={12} sm={6} md={4} lg={2} key={index}>
-            <Card
-              sx={{
-                height: '100%',
-                background: `linear-gradient(135deg, ${stat.color}20 0%, ${stat.color}10 100%)`,
-                borderTop: `3px solid ${stat.color}`,
-              }}
-            >
-              <CardContent>
-                <Box display="flex" alignItems="center" mb={2}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: 40,
-                      height: 40,
-                      borderRadius: '50%',
-                      backgroundColor: stat.color,
-                      color: 'white',
-                    }}
-                  >
-                    {React.cloneElement(stat.icon, { fontSize: 'small' })}
-                  </Box>
-                </Box>
-                <Typography variant="h4" fontWeight="bold">
-                  {stat.value}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {stat.title}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+          <div
+            key={index}
+            className={`${stat.bgColor} rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-200/50`}
+          >
+            <div className="flex flex-col gap-3">
+              <div
+                className={`w-12 h-12 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center text-2xl shadow-lg`}
+              >
+                {stat.icon}
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-gray-800">{stat.value}</div>
+                <div className="text-sm text-gray-600 font-medium mt-1">{stat.title}</div>
+              </div>
+            </div>
+          </div>
         ))}
-      </Grid>
+      </div>
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
-          <Paper sx={{ p: 3 }}>
-            <Box display="flex" alignItems="center" mb={2}>
-              <TrendingUp color="primary" sx={{ mr: 1 }} />
-              <Typography variant="h6" fontWeight="bold">
-                Recent Activities
-              </Typography>
-            </Box>
-            <List>
-              {recentActivities.map((activity, index) => (
-                <ListItem
-                  key={index}
-                  sx={{
-                    borderLeft: `3px solid ${
-                      activity.status === 'success'
-                        ? '#4caf50'
-                        : activity.status === 'warning'
-                        ? '#ff9800'
-                        : '#2196f3'
-                    }`,
-                    mb: 1,
-                    backgroundColor: 'background.default',
-                    borderRadius: 1,
-                  }}
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Recent Activities */}
+        <div className="lg:col-span-2 bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-gray-200/50">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center">
+              <span className="text-xl">📈</span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800">Recent Activities</h2>
+          </div>
+          <div className="space-y-3">
+            {recentActivities.map((activity, index) => (
+              <div
+                key={index}
+                className={`flex items-start gap-4 p-4 rounded-xl border-l-4 transition-all duration-200 hover:scale-[1.02] hover:shadow-md ${
+                  activity.status === 'success'
+                    ? 'bg-green-50 border-green-500'
+                    : activity.status === 'warning'
+                    ? 'bg-yellow-50 border-yellow-500'
+                    : 'bg-blue-50 border-blue-500'
+                }`}
+              >
+                <div className="text-2xl">{activity.icon}</div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-gray-800 font-medium">{activity.text}</p>
+                  <p className="text-sm text-gray-500 mt-1">{activity.time}</p>
+                </div>
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                    activity.status === 'success'
+                      ? 'bg-green-100 text-green-700'
+                      : activity.status === 'warning'
+                      ? 'bg-yellow-100 text-yellow-700'
+                      : 'bg-blue-100 text-blue-700'
+                  }`}
                 >
-                  <ListItemText
-                    primary={activity.text}
-                    secondary={activity.time}
-                  />
-                  <Chip
-                    label={activity.status}
-                    size="small"
-                    color={
-                      activity.status === 'success'
-                        ? 'success'
-                        : activity.status === 'warning'
-                        ? 'warning'
-                        : 'info'
-                    }
-                  />
-                </ListItem>
-              ))}
-            </List>
-          </Paper>
-        </Grid>
+                  {activity.status}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
 
-        <Grid item xs={12} md={4}>
-          <Paper sx={{ p: 3 }}>
-            <Box display="flex" alignItems="center" mb={2}>
-              <CheckCircle color="success" sx={{ mr: 1 }} />
-              <Typography variant="h6" fontWeight="bold">
-                Quick Actions
-              </Typography>
-            </Box>
-            <List>
-              <ListItem
-                button
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 1,
-                  mb: 1,
-                }}
+        {/* Quick Actions */}
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-gray-200/50">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+              <span className="text-xl">⚡</span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800">Quick Actions</h2>
+          </div>
+          <div className="space-y-3">
+            {quickActions.map((action, index) => (
+              <button
+                key={index}
+                className="w-full text-left p-4 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50/50 transition-all duration-200 hover:scale-[1.02] hover:shadow-md group"
               >
-                <ListItemText
-                  primary="Generate New Routine"
-                  secondary="Create schedule for a semester"
-                />
-              </ListItem>
-              <ListItem
-                button
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 1,
-                  mb: 1,
-                }}
-              >
-                <ListItemText
-                  primary="Add Programme"
-                  secondary="Create new academic programme"
-                />
-              </ListItem>
-              <ListItem
-                button
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 1,
-                  mb: 1,
-                }}
-              >
-                <ListItemText
-                  primary="Manage Teachers"
-                  secondary="Add or update faculty members"
-                />
-              </ListItem>
-              <ListItem
-                button
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 1,
-                }}
-              >
-                <ListItemText
-                  primary="View Reports"
-                  secondary="Check routine statistics"
-                />
-              </ListItem>
-            </List>
-          </Paper>
-        </Grid>
-      </Grid>
-    </Box>
+                <div className="flex items-start gap-3">
+                  <div className="text-2xl group-hover:scale-110 transition-transform">
+                    {action.icon}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">
+                      {action.title}
+                    </h3>
+                    <p className="text-sm text-gray-500 mt-1">{action.description}</p>
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
